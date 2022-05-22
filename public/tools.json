@@ -1,6 +1,6 @@
 [
     {
-      "name": "Drill Machine",
+      "name": "Drill Machine Red",
       "picture": "https://i.ibb.co/HBtrxzV/drill-1.jpg",
       "minOrderQuantity": 27,
       "availableQuantity": 29,
@@ -8,7 +8,7 @@
       "description": "Red color, powerful, easy to use"
     },
     {
-      "name": "Drill Machine",
+      "name": "Drill Machine Yellow",
       "picture": "https://i.ibb.co/f9cKrrK/drill.jpg",
       "minOrderQuantity": 34,
       "availableQuantity": 40,
