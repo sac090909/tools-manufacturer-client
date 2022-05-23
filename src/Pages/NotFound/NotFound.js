@@ -1,9 +1,11 @@
 import React from "react";
+import page404 from "../../../src/assets/images/page-404.jpg";
 
 const NotFound = () => {
   return (
-    <div>
-      <h3>404 Page</h3>
+    <div className="flex justify-center">
+      <img className="shadow-lg " src={page404} alt="" />
+      {/* <h4 className="text-center">Sorry page not found ! 404 !!</h4> */}
     </div>
   );
 };
