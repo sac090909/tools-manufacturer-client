@@ -18,9 +18,12 @@ const Navbar = () => {
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
-      <li>
-        <Link to="/myprofile">My Profile</Link>
-      </li>
+
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       <li>{user ? <SignOut></SignOut> : <Link to="/login">Login</Link>}</li>
     </>
   );
@@ -64,6 +67,28 @@ const Navbar = () => {
           <Link to="/login">Login</Link>
         </li>
       </div> */}
+      <div className="navbar-end">
+        <label
+          tabIndex="1"
+          htmlFor="dashboard-sidebar"
+          className="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
+      </div>
     </div>
   );
 };

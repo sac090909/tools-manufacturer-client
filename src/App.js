@@ -8,9 +8,13 @@ import Tools from "./Pages/Home/Tools";
 import RequireAuth from "./Pages/Login/RequireAuth.js";
 import Login from "./Pages/Login/Login";
 import Blogs from "./Pages/Blogs/Blogs";
-import MyProfile from "./Pages/MyProfile/MyProfile";
+
 import Purchase from "./Pages/Purchase/Purchase";
 import SignUp from "./Pages/Login/SignUp";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import MyOrders from "./Pages/Dashboard/MyOrders";
+import AddReviews from "./Pages/Dashboard/AddReviews";
+import MyProfile from "./Pages/Dashboard/MyProfile";
 
 function App() {
   return (
@@ -31,7 +35,12 @@ function App() {
         ></Route>
 
         <Route path="blogs" element={<Blogs></Blogs>}></Route>
-        <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
+        <Route path="dashboard" element={<Dashboard></Dashboard>}>
+          <Route index element={<MyProfile></MyProfile>}></Route>
+          <Route path="myorders" element={<MyOrders></MyOrders>}></Route>
+          <Route path="addreviews" element={<AddReviews></AddReviews>}></Route>
+        </Route>
+
         <Route path="signup" element={<SignUp></SignUp>}></Route>
         <Route path="login" element={<Login></Login>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
