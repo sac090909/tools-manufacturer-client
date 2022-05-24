@@ -6,7 +6,7 @@ import Loading from "../Shared/Loading";
 import { toast } from "react-toastify";
 
 const MyOrders = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const {
     data: orders,
@@ -18,7 +18,7 @@ const MyOrders = () => {
     )
   );
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return <Loading></Loading>;
   }
 
@@ -82,7 +82,7 @@ const MyOrders = () => {
                   />
                   <div className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
-                      <div class="modal-action">
+                      <div className="modal-action">
                         <label
                           htmlFor="my-modal-6"
                           className="btn btn-sm btn-circle absolute right-6 top-2"

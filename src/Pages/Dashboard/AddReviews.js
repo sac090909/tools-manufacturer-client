@@ -15,6 +15,10 @@ const AddReviews = () => {
     handleSubmit,
   } = useForm();
 
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
   const onSubmit = (data, event) => {
     console.log(data);
 

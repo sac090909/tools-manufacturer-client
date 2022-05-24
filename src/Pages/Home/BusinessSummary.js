@@ -15,11 +15,12 @@ const BusinessSummary = () => {
   const element3 = <FontAwesomeIcon icon={faBuildingColumns} />;
   return (
     <div>
-      {/* <h1 className="text-3xl font-bold my-24 text-center">
+      <h1 className="text-3xl font-bold my-24 text-center">
         {" "}
         Business Summary
-      </h1> */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center -mt-16 mb-24">
+      </h1>
+      {/* <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center -mt-16 mb-24"> */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center my-24">
         <div>
           <div className="card w-96 bg-base-100 shadow-xl">
             <figure className="px-10 pt-10 text-4xl ">{element1}</figure>
