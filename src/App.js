@@ -8,13 +8,14 @@ import Tools from "./Pages/Home/Tools";
 import RequireAuth from "./Pages/Login/RequireAuth.js";
 import Login from "./Pages/Login/Login";
 import Blogs from "./Pages/Blogs/Blogs";
-
 import Purchase from "./Pages/Purchase/Purchase";
 import SignUp from "./Pages/Login/SignUp";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import MyOrders from "./Pages/Dashboard/MyOrders";
 import AddReviews from "./Pages/Dashboard/AddReviews";
 import MyProfile from "./Pages/Dashboard/MyProfile";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="login" element={<Login></Login>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

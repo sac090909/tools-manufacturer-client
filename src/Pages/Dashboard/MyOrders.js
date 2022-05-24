@@ -3,11 +3,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
+import { toast } from "react-toastify";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
 
-  const { data: orders, isLoading } = useQuery(["myOrders", user], () =>
+  const {
+    data: orders,
+    isLoading,
+    refetch,
+  } = useQuery(["myOrders", user], () =>
     fetch(`http://localhost:5001/purchase?user=${user.email}`).then((res) =>
       res.json()
     )
@@ -16,6 +21,24 @@ const MyOrders = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
+
+  const handleCancelPurchaseOrder = (orderId) => {
+    if (orderId) {
+      const url = `http://localhost:5001/purchase/${orderId}`;
+      fetch(url, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            toast("Order Canceled !");
+            refetch();
+          }
+          refetch();
+        });
+    }
+  };
 
   return (
     <div class="overflow-x-auto">
@@ -44,7 +67,40 @@ const MyOrders = () => {
               <td>{order.orderedQuantity}</td>
               <td>{order.unitPrice}</td>
               <td>{order.totalCost}</td>
-              <td>Cancel</td>
+              <td>
+                <div>
+                  <label htmlFor="my-modal-6" className="btn modal-button">
+                    Cancel
+                  </label>
+
+                  <input
+                    type="checkbox"
+                    id="my-modal-6"
+                    className="modal-toggle"
+                  />
+                  <div className="modal modal-bottom sm:modal-middle">
+                    <div className="modal-box">
+                      <h3 className="font-bold text-lg">
+                        {order?.displayName} , <br /> Are you sure to cancle the
+                        order?
+                      </h3>
+                      <p className="py-4">
+                        {order?._id} : {order?.name}
+                      </p>
+
+                      <div className="modal-action">
+                        <label
+                          htmlFor="my-modal-6"
+                          className="btn"
+                          onClick={() => handleCancelPurchaseOrder(order._id)}
+                        >
+                          YES
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
               <td>Pay</td>
               <td>xxxx</td>
             </tr>

@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
+import { toast } from "react-toastify";
 
 const Purchase = () => {
   const { toolsId } = useParams();
 
   const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
 
   console.log(user);
 
@@ -66,6 +68,12 @@ const Purchase = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        if (result.insertedId) {
+          toast("WOW ! Order has been added, Now in My Order page. Thank You!");
+          navigate("/dashboard/myorders");
+        } else {
+          toast("Sorry, having trouble to add the order!");
+        }
       });
   };
 
