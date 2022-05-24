@@ -21,7 +21,9 @@ const Tools = () => {
 
   return (
     <div>
-      <h3 className="text-center my-8 text-3xl">Tools We Manufacture</h3>
+      <h3 className="text-center my-24 text-3xl font-bold">
+        Tools We Manufacture
+      </h3>
       <div className="grid lg:grid-cols-3 gap-4 sm:grid-cols-1 justify-items-center">
         {tools?.slice(0, 3).map((tool) => (
           <Tool key={tool._id} tool={tool} refetch={refetch}></Tool>

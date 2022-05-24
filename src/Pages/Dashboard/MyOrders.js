@@ -41,13 +41,14 @@ const MyOrders = () => {
   };
 
   return (
-    <div class="overflow-x-auto">
-      <table class="table table-compact w-full">
+    <div className="overflow-x-auto mx-2">
+      <table className="table table-compact w-full">
         <thead>
           <tr>
             <th>Sl</th>
             <th>User Name</th>
             <th>Email</th>
+            <th>Order Id</th>
             <th>Item Name</th>
             <th>Ordered Qty</th>
             <th>Unit Price</th>
@@ -59,14 +60,15 @@ const MyOrders = () => {
         </thead>
         <tbody>
           {orders.map((order, index) => (
-            <tr>
+            <tr key={order._id}>
               <th>{index + 1}</th>
               <td>{order.displayName}</td>
               <td>{order.email}</td>
+              <td>{order._id}</td>
               <td>{order.name}</td>
               <td>{order.orderedQuantity}</td>
-              <td>{order.unitPrice}</td>
-              <td>{order.totalCost}</td>
+              <td>$ {order.unitPrice}</td>
+              <td>$ {order.totalCost}</td>
               <td>
                 <div>
                   <label htmlFor="my-modal-6" className="btn modal-button">
@@ -80,6 +82,14 @@ const MyOrders = () => {
                   />
                   <div className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
+                      <div class="modal-action">
+                        <label
+                          htmlFor="my-modal-6"
+                          className="btn btn-sm btn-circle absolute right-6 top-2"
+                        >
+                          ✕
+                        </label>
+                      </div>
                       <h3 className="font-bold text-lg">
                         {order?.displayName} , <br /> Are you sure to cancle the
                         order?

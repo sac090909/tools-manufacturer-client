@@ -43,7 +43,7 @@ const Purchase = () => {
   //   console.log(data);
   // };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, event) => {
     console.log(data);
     const orderedQuantity = parseInt(data.orderedQuantity);
     const availableQuantity = parseInt(data.availableQuantity);
@@ -74,27 +74,21 @@ const Purchase = () => {
         } else {
           toast("Sorry, having trouble to add the order!");
         }
+        event.target.reset();
       });
   };
 
   return (
-    // <div>
-    //   <h2> Tool name {tool.name}</h2>
-    //   <div className="text-center">
-    //     <Link to="/checkout">
-    //       <button className="btn btn-primary">Proceed Checkout</button>
-    //     </Link>
-    //   </div>
-    // </div>
-
     <div className="flex justify-center items-center mt-8">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="text-center text-2xl font-bold">Purchase Detail</h2>
+          <h2 className="text-center text-2xl font-bold">
+            Purchase Order Detail
+          </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                <span className="label-text">User Information </span>
+                <span className="label-text font-bold">User Information </span>
               </label>
 
               <label className="input-group mt-1">
@@ -116,19 +110,50 @@ const Purchase = () => {
                   {...register("email")}
                 />
               </label>
-
-              <label className="input-group mt-1 mb-6">
-                <span>Address</span>
-                <input
-                  type="text"
-                  className="input input-bordered w-full max-w-xs"
-                  placeholder="address"
-                  {...register("address")}
-                />
-              </label>
+              <div>
+                <label className="input-group mt-1 mb-6">
+                  <span>Address</span>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full max-w-xs"
+                    placeholder="address"
+                    {...register("address", {
+                      required: {
+                        value: true,
+                        message: "Address is Required",
+                      },
+                      maxLength: {
+                        value: 75,
+                        message: "Max length 75",
+                      },
+                      pattern: {
+                        value: /^\s*\S[\s\S]*$/,
+                        message: "Blank is not allowed",
+                      },
+                    })}
+                  />
+                </label>
+                <label className="label">
+                  {errors.address?.type === "required" && (
+                    <span className="label-text-alt text-red-500">
+                      {errors.address.message}
+                    </span>
+                  )}
+                  {errors.address?.type === "maxLength" && (
+                    <span className="label-text-alt text-red-500">
+                      {errors.address.message}
+                    </span>
+                  )}
+                  {errors.address?.type === "pattern" && (
+                    <span className="label-text-alt text-red-500">
+                      {errors.address.message}
+                    </span>
+                  )}
+                </label>
+              </div>
 
               <label className="label">
-                <span className="label-text">Item Information </span>
+                <span className="label-text font-bold">Item Information </span>
               </label>
 
               <label className="input-group mt-1">
@@ -169,16 +194,47 @@ const Purchase = () => {
                   {...register("availableQuantity")}
                 />
               </label>
-
-              <label className="input-group mt-1">
-                <span>Order</span>
-                <input
-                  type="number"
-                  className="input input-bordered w-full max-w-xs"
-                  placeholder={`min order quantity ${tool.minOrderQuantity}`}
-                  {...register("orderedQuantity")}
-                />
-              </label>
+              <div>
+                <label className="input-group mt-1">
+                  <span>Order</span>
+                  <input
+                    type="number"
+                    className="input input-bordered w-full max-w-xs"
+                    placeholder={`min ${tool.minOrderQuantity} to max ${tool.availableQuantity}`}
+                    {...register("orderedQuantity", {
+                      required: {
+                        value: true,
+                        message: "Order quantity is Required",
+                      },
+                      min: {
+                        value: `${tool.minOrderQuantity}`,
+                        message: `Min value is ${tool.minOrderQuantity} `,
+                      },
+                      max: {
+                        value: `${tool.availableQuantity}`,
+                        message: `Max value is ${tool.availableQuantity}`,
+                      },
+                    })}
+                  />
+                </label>
+                <label className="label">
+                  {errors.orderedQuantity?.type === "required" && (
+                    <span className="label-text-alt text-red-500">
+                      {errors.orderedQuantity.message}
+                    </span>
+                  )}
+                  {errors.orderedQuantity?.type === "min" && (
+                    <span className="label-text-alt text-red-500">
+                      {errors.orderedQuantity.message}
+                    </span>
+                  )}
+                  {errors.orderedQuantity?.type === "max" && (
+                    <span className="label-text-alt text-red-500">
+                      {errors.orderedQuantity.message}
+                    </span>
+                  )}
+                </label>
+              </div>
             </div>
             <input
               className="btn w-full max-w-xs text-white mt-2"
