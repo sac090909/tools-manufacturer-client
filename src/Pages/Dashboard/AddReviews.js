@@ -28,7 +28,7 @@ const AddReviews = () => {
       email: email,
     });
 
-    const url = `http://localhost:5001/review`;
+    const url = `http://localhost:5001/reviews`;
     fetch(url, {
       method: "POST",
       headers: {
