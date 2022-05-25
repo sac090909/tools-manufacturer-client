@@ -24,6 +24,7 @@ const MyOrders = () => {
   }
 
   const handleCancelPurchaseOrder = (orderId) => {
+    console.log(orderId);
     if (orderId) {
       const url = `http://localhost:5001/purchase/${orderId}`;
       fetch(url, {
@@ -62,14 +63,14 @@ const MyOrders = () => {
         <tbody>
           {orders.map((order, index) => (
             <tr key={order._id}>
-              <th>{index + 1}</th>
-              <td>{order.displayName}</td>
-              <td>{order.email}</td>
-              <td>{order._id}</td>
-              <td>{order.name}</td>
-              <td>{order.orderedQuantity}</td>
-              <td>$ {order.unitPrice}</td>
-              <td>$ {order.totalCost}</td>
+              <th>{index}</th>
+              <td>{order?.displayName}</td>
+              <td>{order?.email}</td>
+              <td>{order?._id}</td>
+              <td>{order?.name}</td>
+              <td>{order?.orderedQuantity}</td>
+              <td>$ {order?.unitPrice}</td>
+              <td>$ {order?.totalCost}</td>
               <td>
                 <div>
                   <label htmlFor="my-modal-6" className="btn modal-button">

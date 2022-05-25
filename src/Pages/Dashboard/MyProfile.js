@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
@@ -8,6 +9,7 @@ import MyProfileUpdate from "./MyProfileUpdate";
 
 const MyProfile = () => {
   const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
   const email = user?.email;
   const displayName = user?.displayName;
   const {
@@ -34,7 +36,7 @@ const MyProfile = () => {
       socialProfile: event.target.social.value,
     };
 
-    fetch(`http://localhost:5001/user/${email}`, {
+    fetch(`http://localhost:5001/profile/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

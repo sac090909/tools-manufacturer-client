@@ -38,8 +38,8 @@ function App() {
 
         <Route path="blogs" element={<Blogs></Blogs>}></Route>
         <Route path="dashboard" element={<Dashboard></Dashboard>}>
-          <Route index element={<MyOrders></MyOrders>}></Route>
-          <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
+          <Route index element={<MyProfile></MyProfile>}></Route>
+          <Route path="myorders" element={<MyOrders></MyOrders>}></Route>
           <Route path="addreviews" element={<AddReviews></AddReviews>}></Route>
         </Route>
 
