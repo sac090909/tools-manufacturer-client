@@ -9,7 +9,7 @@ import MyProfileUpdate from "./MyProfileUpdate";
 
 const MyProfile = () => {
   const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
+
   const email = user?.email;
   const displayName = user?.displayName;
   const {
@@ -58,6 +58,13 @@ const MyProfile = () => {
       });
   };
 
+  let cellData = (
+    <MyProfileUpdate
+      handleInfoUpdate={handleInfoUpdate}
+      profile={profile}
+    ></MyProfileUpdate>
+  );
+
   return (
     <div className="overflow-x-auto mx-2">
       <table className="table w-full">
@@ -85,60 +92,35 @@ const MyProfile = () => {
             <th>2</th>
             <td>Name</td>
             <td>{profile?.displayName}</td>
-            <td>
-              <MyProfileUpdate
-                handleInfoUpdate={handleInfoUpdate}
-                profile={profile}
-              ></MyProfileUpdate>
-            </td>
+            <td>{cellData}</td>
           </tr>
 
           <tr>
             <th>3</th>
             <td>Phone</td>
             <td>{profile?.phone}</td>
-            <td>
-              <MyProfileUpdate
-                handleInfoUpdate={handleInfoUpdate}
-                profile={profile}
-              ></MyProfileUpdate>
-            </td>
+            <td>{cellData}</td>
           </tr>
 
           <tr>
             <th>4</th>
             <td>Address</td>
             <td>{profile?.address}</td>
-            <td>
-              <MyProfileUpdate
-                handleInfoUpdate={handleInfoUpdate}
-                profile={profile}
-              ></MyProfileUpdate>
-            </td>
+            <td>{cellData}</td>
           </tr>
 
           <tr>
             <th>5</th>
             <td>Education</td>
             <td>{profile?.education}</td>
-            <td>
-              <MyProfileUpdate
-                handleInfoUpdate={handleInfoUpdate}
-                profile={profile}
-              ></MyProfileUpdate>
-            </td>
+            <td>{cellData}</td>
           </tr>
 
           <tr>
             <th>6</th>
             <td>Social Profile</td>
             <td>{profile?.socialProfile}</td>
-            <td>
-              <MyProfileUpdate
-                handleInfoUpdate={handleInfoUpdate}
-                profile={profile}
-              ></MyProfileUpdate>
-            </td>
+            <td>{cellData}</td>
           </tr>
         </tbody>
       </table>
