@@ -39,10 +39,6 @@ const Purchase = () => {
     return <Loading></Loading>;
   }
 
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
-
   const onSubmit = (data, event) => {
     console.log(data);
     const orderedQuantity = parseInt(data.orderedQuantity);
@@ -70,7 +66,7 @@ const Purchase = () => {
         console.log(result);
         if (result.insertedId) {
           toast("WOW ! Order has been added, Now in My Order page. Thank You!");
-          navigate("/dashboard/myorders");
+          navigate("/dashboard");
         } else {
           toast("Sorry, having trouble to add the order!");
         }

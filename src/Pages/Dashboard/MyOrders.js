@@ -7,13 +7,14 @@ import { toast } from "react-toastify";
 
 const MyOrders = () => {
   const [user, loading] = useAuthState(auth);
+  const email = user?.email;
 
   const {
     data: orders,
     isLoading,
     refetch,
-  } = useQuery(["myOrders", user], () =>
-    fetch(`http://localhost:5001/purchase?user=${user.email}`).then((res) =>
+  } = useQuery(["myOrders", email], () =>
+    fetch(`http://localhost:5001/purchase?user=${email}`).then((res) =>
       res.json()
     )
   );
@@ -35,9 +36,9 @@ const MyOrders = () => {
             toast("Order Canceled !");
             refetch();
           }
-          refetch();
         });
     }
+    refetch();
   };
 
   return (

@@ -1,21 +1,60 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
+import MyProfileUpdate from "./MyProfileUpdate";
 
 const MyProfile = () => {
   const [user, loading] = useAuthState(auth);
-
   const email = user?.email;
-
-  const { data: profile, isLoading } = useQuery(["myProfile", email], () =>
-    fetch(`http://localhost:5001/myprofile/${email}`).then((res) => res.json())
+  const displayName = user?.displayName;
+  const {
+    data: profile,
+    isLoading,
+    refetch,
+  } = useQuery(["myProfile", email], () =>
+    fetch(`http://localhost:5001/user/${email}`).then((res) => res.json())
   );
-
+  console.log(profile);
   if (isLoading || loading) {
     return <Loading></Loading>;
   }
+
+  const handleInfoUpdate = (event) => {
+    event.preventDefault();
+
+    const profileData = {
+      email: email,
+      displayName: displayName,
+      phone: event.target.phone.value,
+      address: event.target.address.value,
+      education: event.target.education.value,
+      socialProfile: event.target.social.value,
+    };
+
+    fetch(`http://localhost:5001/user/${email}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(profileData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          toast(`Information Update ! May close the modal, Thank you.`);
+        } else {
+          toast.error(
+            `Sorry, something went wrong, close the modal and try later...`
+          );
+        }
+        refetch();
+        event.target.reset();
+      });
+  };
 
   return (
     <div className="overflow-x-auto mx-2">
@@ -31,8 +70,8 @@ const MyProfile = () => {
         <tbody>
           <tr>
             <th>1</th>
-            <td>Name</td>
-            <td>{profile?.displayName}</td>
+            <td>Email</td>
+            <td>{profile?.email}</td>
             <td>
               <div>
                 <button className="btn btn-disabled">Update</button>
@@ -40,51 +79,65 @@ const MyProfile = () => {
             </td>
           </tr>
 
-          {/* <tr>
+          <tr>
             <th>2</th>
-            <td>E-mail</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr> */}
+            <td>Name</td>
+            <td>{profile?.displayName}</td>
+            <td>
+              <MyProfileUpdate
+                handleInfoUpdate={handleInfoUpdate}
+                profile={profile}
+              ></MyProfileUpdate>
+            </td>
+          </tr>
 
           <tr>
             <th>3</th>
             <td>Phone</td>
             <td>{profile?.phone}</td>
             <td>
-              <div>
-                <button className="btn btn-black">Update</button>
-              </div>
+              <MyProfileUpdate
+                handleInfoUpdate={handleInfoUpdate}
+                profile={profile}
+              ></MyProfileUpdate>
             </td>
           </tr>
 
-          {/* <tr>
+          <tr>
             <th>4</th>
             <td>Address</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
+            <td>{profile?.address}</td>
+            <td>
+              <MyProfileUpdate
+                handleInfoUpdate={handleInfoUpdate}
+                profile={profile}
+              ></MyProfileUpdate>
+            </td>
           </tr>
 
           <tr>
             <th>5</th>
             <td>Education</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
+            <td>{profile?.education}</td>
+            <td>
+              <MyProfileUpdate
+                handleInfoUpdate={handleInfoUpdate}
+                profile={profile}
+              ></MyProfileUpdate>
+            </td>
           </tr>
 
           <tr>
             <th>6</th>
             <td>Social Profile</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
+            <td>{profile?.socialProfile}</td>
+            <td>
+              <MyProfileUpdate
+                handleInfoUpdate={handleInfoUpdate}
+                profile={profile}
+              ></MyProfileUpdate>
+            </td>
           </tr>
-
-          <tr>
-            <th>7</th>
-            <td>Comment</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr> */}
         </tbody>
       </table>
     </div>
