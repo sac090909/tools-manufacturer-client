@@ -3,7 +3,6 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
-import Home from "../Home/Home";
 
 import Loading from "./Loading";
 
@@ -31,12 +30,15 @@ const Navbar = () => {
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
-
+      <li>
+        <Link to="/myportfolio">My Portfolio</Link>
+      </li>
       {user && (
         <li>
           <Link to="/dashboard">Dashboard</Link>
         </li>
       )}
+
       <li>
         {user ? (
           <button onClick={logout} className="btn btn-ghost border-black">
